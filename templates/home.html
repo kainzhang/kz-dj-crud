@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome To LOKKA</h1>
+    <a href="{% url 'goods:goods_list' %}">Goods Management</a><br>
+    <a href="{% url 'vip:vip_list' %}">Vip Management</a><br>
+    <a href="{% url 'staff:staff_list' %}">Staff Management</a><br>
+    <a href="{% url 'sale:sale_list' %}">Sale Management</a><br>
+{% endblock %}

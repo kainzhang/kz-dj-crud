@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="get" action="{% url 'goods:goods_search' %}">
+        {% csrf_token %}
+        <label>
+            <input type="text" placeholder="keyword" name="keyword">
+        </label>
+        <input type="submit" value="Search">
+    </form>
+
+    <a href="{% url 'goods:goods_new' %}">Add New</a>
+
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>MFR</th>
+        <th>Category</th>
+        <th>B_Price</th>
+        <th>Quantity</th>
+        <th>S_Price</th>
+        <th>Date</th>
+        <th>Total_Bprice</th>
+        <th>Operations</th>
+    </tr>
+    {% for goods in object_list %}
+    <tr>
+        <td>{{ goods.id }}</td>
+        <td>{{ goods.name }}</td>
+        <td>{{ goods.mfr }}</td>
+        <td>{{ goods.get_category_display }}</td>
+        <td>{{ goods.bprice }}</td>
+        <td>{{ goods.quantity }}</td>
+        <td>{{ goods.sprice }}</td>
+        <td>{{ goods.date }}</td>
+        <td>{% widthratio goods.bprice 1 goods.quantity %}</td>
+        <td>
+            <a href="{% url 'goods:goods_add' goods.id %}">add</a>/
+            <a href="{% url 'goods:goods_edit' goods.id %}">edit</a>/
+            <a href="{% url 'goods:goods_remove' goods.id %}">remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

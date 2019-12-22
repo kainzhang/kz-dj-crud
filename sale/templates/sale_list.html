@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+
+    <script type="text/javascript" src="{% static 'js/date.js' %}" ></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <form method="get" action="{% url 'sale:sale_search_date' %}" name="thisform">
+        {% csrf_token %}
+        <label>
+            <select name="YY" onchange="ynd(this.value)"><option value="YY" selected>YY</option></select>
+        </label>
+        <label>
+            <select name="MM" onchange="mnd(this.value)"><option value="MM" selected>MM</option></select>
+        </label>
+        <label>
+            <select name="DD" ><option value="DD" selected>DD</option></select>
+        </label>
+        <input type="submit" value="Search">
+        <p style="color: red">{{ message }}</p>
+    </form>
+
+    <a href="{% url 'sale:sale_new' %}">Add New</a>
+
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Total Buy</th>
+        <th>Total sell</th>
+        <th>Operations</th>
+    </tr>
+    {% for sale in object_list %}
+    <tr>
+        <td>{{ sale.id }}</td>
+        <td>{{ sale.date }}</td>
+        <td>{{ sale.total_buy }}</td>
+        <td>{{ sale.total_sell }}</td>
+        <td>
+            <a href="{% url 'sale:sale_remove' sale.id %}">remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

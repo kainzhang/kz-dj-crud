@@ -1,0 +1,24 @@
+{% load static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block header %}
+    {% endblock %}
+</head>
+<body>
+    <div id="header">
+        <h1><a href="{% url 'home' %}">LOKKA's Market</a></h1>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <div id="footer">
+        <hr>
+    </div>
+</body>
+</html>

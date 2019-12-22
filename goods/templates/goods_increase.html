@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="get" action="{% url 'goods:goods_add' object.id %}">
+    {% csrf_token %}
+        <label> Quantity:
+            <input type="number" name="quantity">
+        </label>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

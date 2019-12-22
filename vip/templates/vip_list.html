@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="get" action="{% url 'vip:vip_search' %}">
+        {% csrf_token %}
+        <label>
+            <input type="text" placeholder="keyword" name="keyword">
+        </label>
+        <input type="submit" value="Search">
+    </form>
+
+    <a href="{% url 'vip:vip_new' %}">Add New</a>
+
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Discount</th>
+        <th>Create Time</th>
+        <th>Operations</th>
+    </tr>
+    {% for vip in object_list %}
+    <tr>
+        <td>{{ vip.id }}</td>
+        <td>{{ vip.name }}</td>
+        <td>{{ vip.get_gender_display }}</td>
+        <td>{{ vip.address }}</td>
+        <td>{{ vip.phone }}</td>
+        <td>{{ vip.discount }}</td>
+        <td>{{ vip.create_time }}</td>
+        <td>
+            <a href="{% url 'vip:vip_edit' vip.id %}">edit</a>
+            <span>/</span>
+            <a href="{% url 'vip:vip_remove' vip.id %}">remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

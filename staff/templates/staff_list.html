@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="get" action="{% url 'staff:staff_search' %}">
+        {% csrf_token %}
+        <label>
+            <input type="text" placeholder="keyword" name="keyword">
+        </label>
+        <input type="submit" value="Search">
+    </form>
+
+    <a href="{% url 'staff:staff_new' %}">Add New</a>
+
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>AGE</th>
+        <th>Department</th>
+        <th>Position</th>
+        <th>Phone</th>
+        <th>Salary</th>
+        <th>Address</th>
+        <th>Create Time</th>
+        <th>Operations</th>
+    </tr>
+    {% for staff in object_list %}
+    <tr>
+        <td>{{ staff.id }}</td>
+        <td>{{ staff.name }}</td>
+        <td>{{ staff.get_gender_display }}</td>
+        <td>{{ staff.age }}</td>
+        <td>{{ staff.get_department_display }}</td>
+        <td>{{ staff.position }}</td>
+        <td>{{ staff.phone }}</td>
+        <td>{{ staff.salary }}</td>
+        <td>{{ staff.address }}</td>
+        <td>{{ staff.create_time }}</td>
+        <td>
+            <a href="{% url 'staff:staff_edit' staff.id %}">edit</a>
+            <span>/</span>
+            <a href="{% url 'staff:staff_remove' staff.id %}">remove</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
