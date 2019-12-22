@@ -19,8 +19,11 @@ from django.contrib import admin
 from dj_crud import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
+    path('login/', views.login, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('register/', views.register, name='register'),
     path('goods/', include('goods.urls', namespace='goods')),
     path('vip/', include('vip.urls', namespace='vip')),
     path('staff/', include('staff.urls', namespace='staff')),

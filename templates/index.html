@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Welcome To LOKKA</h1>
+
+    {% if user.is_authenticated %}
+        <span>{{ user.username }}</span> |
+        <a href="{% url 'logout' %}?from={{ request.get_full_path }}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}?from={{ request.get_full_path }}">Login</a> |
+        <a href="{% url 'register' %}?from={{ request.get_full_path }}">Register</a>
+    {% endif %}
+    <br>
+
+    <a href="{% url 'goods:goods_list' %}">Goods Management</a><br>
+    <a href="{% url 'vip:vip_list' %}">Vip Management</a><br>
+    <a href="{% url 'staff:staff_list' %}">Staff Management</a><br>
+    <a href="{% url 'sale:sale_list' %}">Sale Management</a><br>
+{% endblock %}

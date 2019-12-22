@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Staff(models.Model):
     GENDER_CHOICES = (
         (1, 'Male'), (2, 'Female'),
@@ -19,4 +20,7 @@ class Staff(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '<Staff: %s>' % (self.name)
+        return '<Staff: %s>' % self.name
+
+    class Meta:
+        db_table = 'staff'

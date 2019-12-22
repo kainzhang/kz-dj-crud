@@ -37,7 +37,7 @@
         <td>{{ staff.phone }}</td>
         <td>{{ staff.salary }}</td>
         <td>{{ staff.address }}</td>
-        <td>{{ staff.create_time }}</td>
+        <td>{{ staff.create_time|date:'Y-m-d H:i:s' }}</td>
         <td>
             <a href="{% url 'staff:staff_edit' staff.id %}">edit</a>
             <span>/</span>

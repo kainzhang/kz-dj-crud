@@ -31,7 +31,7 @@
         <td>{{ vip.address }}</td>
         <td>{{ vip.phone }}</td>
         <td>{{ vip.discount }}</td>
-        <td>{{ vip.create_time }}</td>
+        <td>{{ vip.create_time|date:'Y-m-d H:i:s' }}</td>
         <td>
             <a href="{% url 'vip:vip_edit' vip.id %}">edit</a>
             <span>/</span>

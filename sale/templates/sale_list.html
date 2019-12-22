@@ -37,7 +37,7 @@
     {% for sale in object_list %}
     <tr>
         <td>{{ sale.id }}</td>
-        <td>{{ sale.date }}</td>
+        <td>{{ sale.date|date:'Y-m-d' }}</td>
         <td>{{ sale.total_buy }}</td>
         <td>{{ sale.total_sell }}</td>
         <td>

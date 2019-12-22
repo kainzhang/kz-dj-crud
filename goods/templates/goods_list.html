@@ -16,13 +16,13 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>MFR</th>
+        <th>Malefactor</th>
         <th>Category</th>
-        <th>B_Price</th>
+        <th>Buying Price</th>
         <th>Quantity</th>
-        <th>S_Price</th>
-        <th>Date</th>
-        <th>Total_Bprice</th>
+        <th>Selling Price</th>
+        <th>Update Date</th>
+        <th>Total buying price</th>
         <th>Operations</th>
     </tr>
     {% for goods in object_list %}
@@ -31,11 +31,11 @@
         <td>{{ goods.name }}</td>
         <td>{{ goods.mfr }}</td>
         <td>{{ goods.get_category_display }}</td>
-        <td>{{ goods.bprice }}</td>
+        <td>{{ goods.buy_price }}</td>
         <td>{{ goods.quantity }}</td>
-        <td>{{ goods.sprice }}</td>
-        <td>{{ goods.date }}</td>
-        <td>{% widthratio goods.bprice 1 goods.quantity %}</td>
+        <td>{{ goods.sell_price }}</td>
+        <td>{{ goods.date|date:'Y-m-d H:i:s' }}</td>
+        <td>{% widthratio goods.buy_price 1 goods.quantity %}</td>
         <td>
             <a href="{% url 'goods:goods_add' goods.id %}">add</a>/
             <a href="{% url 'goods:goods_edit' goods.id %}">edit</a>/

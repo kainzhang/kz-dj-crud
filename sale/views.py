@@ -1,33 +1,40 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.forms import ModelForm
+from django.contrib.auth.decorators import login_required
 
 from sale.models import Sale
+
 
 class SaleForm(ModelForm):
     class Meta:
         model = Sale
         fields = '__all__'
 
+
 def sale_list(request):
     objs = Sale.objects.all()
     i = objs.last()
-    data = {}
-    data['object_list'] = objs
+    data = {'object_list': objs}
     return render(request, 'sale_list.html', data)
 
+
+@login_required
 def sale_insert(request):
     form = SaleForm(request.POST or None)
     if form.is_valid():
         form.save()
         return redirect('sale:sale_list')
-    return render(request, 'form_insert.html', {'form':form})
+    return render(request, 'form_insert.html', {'form': form})
 
+
+@login_required
 def sale_delete(request, pk):
     obj = get_object_or_404(Sale, pk=pk)
     if request.method == 'POST':
         obj.delete()
         return redirect('sale:sale_list')
-    return render(request, 'confirm_delete.html', {'object':obj})
+    return render(request, 'confirm_delete.html', {'object': obj})
+
 
 def sale_select_date(request):
     yy = str(request.GET.get('YY'))
