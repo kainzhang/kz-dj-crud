@@ -2,49 +2,58 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'staff:staff_search' %}">
-        {% csrf_token %}
-        <label>
-            <input type="text" placeholder="keyword" name="keyword">
-        </label>
-        <input type="submit" value="Search">
-    </form>
+    <div class="page">
+    <div class="content">
+        <div class="content-table">
+            <div class="content-search">
+                <div class="content-search-pane">
+                    <form method="get" action="{% url 'staff:staff_search' %}"> {% csrf_token %}
+                        <div class="content-search-pane-name">
+                            <input type="text" placeholder="keyword" name="keyword">
+                            <a href="{% url 'staff:staff_new' %}">ADD NEW</a>
+                        </div>
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+            </div>
 
-    <a href="{% url 'staff:staff_new' %}">Add New</a>
-
-    <table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>AGE</th>
-        <th>Department</th>
-        <th>Position</th>
-        <th>Phone</th>
-        <th>Salary</th>
-        <th>Address</th>
-        <th>Create Time</th>
-        <th>Operations</th>
-    </tr>
-    {% for staff in object_list %}
-    <tr>
-        <td>{{ staff.id }}</td>
-        <td>{{ staff.name }}</td>
-        <td>{{ staff.get_gender_display }}</td>
-        <td>{{ staff.age }}</td>
-        <td>{{ staff.get_department_display }}</td>
-        <td>{{ staff.position }}</td>
-        <td>{{ staff.phone }}</td>
-        <td>{{ staff.salary }}</td>
-        <td>{{ staff.address }}</td>
-        <td>{{ staff.create_time|date:'Y-m-d H:i:s' }}</td>
-        <td>
-            <a href="{% url 'staff:staff_edit' staff.id %}">edit</a>
-            <span>/</span>
-            <a href="{% url 'staff:staff_remove' staff.id %}">remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-    </table>
+            <table id="hor-minimalist-b">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Dept</th>
+                    <th scope="col">Pos</th>
+                    <th scope="col">Tel</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Addr</th>
+                    <th scope="col">Create Time</th>
+                    <th scope="col">Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for staff in object_list %}
+                <tr>
+                    <td>{{ staff.name }}</td>
+                    <td>{{ staff.get_gender_display }}</td>
+                    <td>{{ staff.age }}</td>
+                    <td>{{ staff.get_department_display }}</td>
+                    <td>{{ staff.position }}</td>
+                    <td>{{ staff.phone }}</td>
+                    <td>{{ staff.salary }}</td>
+                    <td>{{ staff.address }}</td>
+                    <td>{{ staff.create_time|date:'Y-m-d H:i:s' }}</td>
+                    <td>
+                        <a href="{% url 'staff:staff_edit' staff.id %}">edit</a> |
+                        <a href="{% url 'staff:staff_remove' staff.id %}">remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
 
 {% endblock %}

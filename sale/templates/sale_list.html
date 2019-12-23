@@ -9,42 +9,56 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'sale:sale_search_date' %}" name="thisform">
-        {% csrf_token %}
-        <label>
-            <select name="YY" onchange="ynd(this.value)"><option value="YY" selected>YY</option></select>
-        </label>
-        <label>
-            <select name="MM" onchange="mnd(this.value)"><option value="MM" selected>MM</option></select>
-        </label>
-        <label>
-            <select name="DD" ><option value="DD" selected>DD</option></select>
-        </label>
-        <input type="submit" value="Search">
-        <p style="color: red">{{ message }}</p>
-    </form>
+    <div class="page">
+        <div class="content">
+            <div class="content-table">
+                <div class="content-search">
+                    <div class="content-search-pane">
+                        <form method="get" action="{% url 'sale:sale_search_date' %}" name="thisform"> {% csrf_token %}
+                            <div class="content-search-pane-name">
+                                <label>
+                                    <select name="YY" onchange="ynd(this.value)"><option value="YY" selected>YY</option></select>
+                                </label>
+                                <label>
+                                    <select name="MM" onchange="mnd(this.value)"><option value="MM" selected>MM</option></select>
+                                </label>
+                                <label>
+                                    <select name="DD" ><option value="DD" selected>DD</option></select>
+                                </label>
+                                <a href="{% url 'sale:sale_new' %}">ADD NEW</a>
+                                <p style="color: red">{{ message }}</p>
+                            </div>
+                            <input type="submit" value="SEARCH">
+                        </form>
+                    </div>
+                </div>
 
-    <a href="{% url 'sale:sale_new' %}">Add New</a>
-
-    <table>
-    <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Total Buy</th>
-        <th>Total sell</th>
-        <th>Operations</th>
-    </tr>
-    {% for sale in object_list %}
-    <tr>
-        <td>{{ sale.id }}</td>
-        <td>{{ sale.date|date:'Y-m-d' }}</td>
-        <td>{{ sale.total_buy }}</td>
-        <td>{{ sale.total_sell }}</td>
-        <td>
-            <a href="{% url 'sale:sale_remove' sale.id %}">remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-    </table>
+                <table id="hor-minimalist-b">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Buy</th>
+                        <th scope="col">Total sell</th>
+                        <th scope="col">Operations</th>
+                    </tr>
+					</thead>
+					<tbody>
+                    {% for sale in object_list %}
+                    <tr>
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.date|date:'Y-m-d' }}</td>
+                        <td>{{ sale.total_buy }}</td>
+                        <td>{{ sale.total_sell }}</td>
+                        <td>
+                            <a href="{% url 'sale:sale_remove' sale.id %}">remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

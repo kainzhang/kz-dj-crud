@@ -2,47 +2,57 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'goods:goods_search' %}">
-        {% csrf_token %}
-        <label>
-            <input type="text" placeholder="keyword" name="keyword">
-        </label>
-        <input type="submit" value="Search">
-    </form>
+    <div class="page">
+    <div class="content">
+        <div class="content-table">
+            <div class="content-search">
+                <div class="content-search-pane">
+                    <form method="get" action="{% url 'goods:goods_search' %}"> {% csrf_token %}
+                        <div class="content-search-pane-name">
+                            <input type="text" placeholder="keyword" name="keyword">
+                            <a href="{% url 'goods:goods_new' %}">ADD NEW</a>
+                        </div>
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+            </div>
 
-    <a href="{% url 'goods:goods_new' %}">Add New</a>
-
-    <table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Malefactor</th>
-        <th>Category</th>
-        <th>Buying Price</th>
-        <th>Quantity</th>
-        <th>Selling Price</th>
-        <th>Update Date</th>
-        <th>Total buying price</th>
-        <th>Operations</th>
-    </tr>
-    {% for goods in object_list %}
-    <tr>
-        <td>{{ goods.id }}</td>
-        <td>{{ goods.name }}</td>
-        <td>{{ goods.mfr }}</td>
-        <td>{{ goods.get_category_display }}</td>
-        <td>{{ goods.buy_price }}</td>
-        <td>{{ goods.quantity }}</td>
-        <td>{{ goods.sell_price }}</td>
-        <td>{{ goods.date|date:'Y-m-d H:i:s' }}</td>
-        <td>{% widthratio goods.buy_price 1 goods.quantity %}</td>
-        <td>
-            <a href="{% url 'goods:goods_add' goods.id %}">add</a>/
-            <a href="{% url 'goods:goods_edit' goods.id %}">edit</a>/
-            <a href="{% url 'goods:goods_remove' goods.id %}">remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-    </table>
+            <table id="hor-minimalist-b">
+                <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">MFY</th>
+                    <th scope="col">CAT</th>
+                    <th scope="col">B/R</th>
+                    <th scope="col">QTY</th>
+                    <th scope="col">S/R</th>
+                    <th scope="col">Refresh Time</th>
+                    <th scope="col">Total B/R</th>
+                    <th scope="col">Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for goods in object_list %}
+                <tr>
+                    <td>{{ goods.name }}</td>
+                    <td>{{ goods.mfr }}</td>
+                    <td>{{ goods.get_category_display }}</td>
+                    <td>{{ goods.buy_price }}</td>
+                    <td>{{ goods.quantity }}</td>
+                    <td>{{ goods.sell_price }}</td>
+                    <td>{{ goods.date|date:'Y-m-d H:i:s' }}</td>
+                    <td>{% widthratio goods.buy_price 1 goods.quantity %}</td>
+                    <td>
+                        <a href="{% url 'goods:goods_add' goods.id %}">add</a> |
+                        <a href="{% url 'goods:goods_edit' goods.id %}">edit</a> |
+                        <a href="{% url 'goods:goods_remove' goods.id %}">remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
 
 {% endblock %}

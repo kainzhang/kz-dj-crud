@@ -6,10 +6,10 @@ from django import forms
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(
+    username = forms.CharField(label=False, widget=forms.TextInput(
         attrs={'class': 'form-item-text', 'placeholder': 'Username'}
     ))
-    password = forms.CharField(widget=forms.PasswordInput(
+    password = forms.CharField(label=False, widget=forms.PasswordInput(
         attrs={'class': 'form-item-text', 'placeholder': 'Password'}
     ))
 
@@ -38,24 +38,20 @@ class RegForm(forms.Form):
         attrs={'class': 'form-item-text', 'placeholder': 'Confirm Password'}
     ))
 
-    def clean_username(self):
+    def clean(self):
         username = self.cleaned_data['username']
         if User.objects.filter(username=username).exists():
             raise forms.ValidationError('Username already exists')
-        return username
 
-    def clean_email(self):
         email = self.cleaned_data['email']
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Email has been registered')
-        return email
 
-    def clean_confirm_password(self):
         password = self.cleaned_data['password']
         confirm_password = self.cleaned_data['confirm_password']
         if password != confirm_password:
             raise forms.ValidationError('Passwords do not match')
-        return confirm_password
+        return self.cleaned_data
 
 
 def index(request):
@@ -63,6 +59,8 @@ def index(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     form = LoginForm(request.POST or None)
     if form.is_valid():
         user = form.cleaned_data['user']
@@ -79,6 +77,8 @@ def logout(request):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     form = RegForm(request.POST or None)
     if form.is_valid():
         username = form.cleaned_data['username']

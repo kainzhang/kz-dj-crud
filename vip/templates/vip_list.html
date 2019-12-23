@@ -2,43 +2,52 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'vip:vip_search' %}">
-        {% csrf_token %}
-        <label>
-            <input type="text" placeholder="keyword" name="keyword">
-        </label>
-        <input type="submit" value="Search">
-    </form>
+    <div class="page">
+    <div class="content">
+        <div class="content-table">
+            <div class="content-search">
+                <div class="content-search-pane">
+                    <form method="get" action="{% url 'vip:vip_search' %}"> {% csrf_token %}
+                        <div class="content-search-pane-name">
+                            <input type="text" placeholder="keyword" name="keyword">
+                            <a href="{% url 'vip:vip_new' %}">ADD NEW</a>
+                        </div>
+                        <input type="submit" value="SEARCH">
+                    </form>
+                </div>
+            </div>
 
-    <a href="{% url 'vip:vip_new' %}">Add New</a>
-
-    <table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Address</th>
-        <th>Phone</th>
-        <th>Discount</th>
-        <th>Create Time</th>
-        <th>Operations</th>
-    </tr>
-    {% for vip in object_list %}
-    <tr>
-        <td>{{ vip.id }}</td>
-        <td>{{ vip.name }}</td>
-        <td>{{ vip.get_gender_display }}</td>
-        <td>{{ vip.address }}</td>
-        <td>{{ vip.phone }}</td>
-        <td>{{ vip.discount }}</td>
-        <td>{{ vip.create_time|date:'Y-m-d H:i:s' }}</td>
-        <td>
-            <a href="{% url 'vip:vip_edit' vip.id %}">edit</a>
-            <span>/</span>
-            <a href="{% url 'vip:vip_remove' vip.id %}">remove</a>
-        </td>
-    </tr>
-    {% endfor %}
-    </table>
+            <table id="hor-minimalist-b">
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Create Time</th>
+                    <th scope="col">Operations</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for vip in object_list %}
+                <tr>
+                    <td>{{ vip.name }}</td>
+                    <td>{{ vip.get_gender_display }}</td>
+                    <td>{{ vip.address }}</td>
+                    <td>{{ vip.phone }}</td>
+                    <td>{{ vip.discount }}</td>
+                    <td>{{ vip.create_time|date:'Y-m-d H:i:s' }}</td>
+                    <td>
+                        <a href="{% url 'vip:vip_edit' vip.id %}">edit</a> |
+                        <a href="{% url 'vip:vip_remove' vip.id %}">remove</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+	</div>
 
 {% endblock %}

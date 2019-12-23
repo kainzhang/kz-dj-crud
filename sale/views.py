@@ -13,7 +13,6 @@ class SaleForm(ModelForm):
 
 def sale_list(request):
     objs = Sale.objects.all()
-    i = objs.last()
     data = {'object_list': objs}
     return render(request, 'sale_list.html', data)
 

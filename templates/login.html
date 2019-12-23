@@ -2,11 +2,22 @@
 
 {% block content %}
 
-    <form method="post">
-    {% csrf_token %}
-        {{ form.as_p }}
-        <p>No account? <a href="{% url 'register' %}">Create one now!</a></p>
-        <input type="submit" value="Login">
-    </form>
+    <div id="signin-content">
+        <div id="signin-content-pane">
+            <h1>Please sign in.</h1>
+            <form method="post"> {% csrf_token %}
+                {% for field in form %}
+                    {{ field }}<br>
+                {% endfor %}
+                {% if form.non_field_errors %}
+                    {{ form.non_field_errors }}
+                {% else %}
+                    <p>&nbsp;</p>
+                {% endif %}
+                <input type="submit" value="Sign in">
+                <a href="{% url 'register' %}">No account? Create one now!</a>
+            </form>
+        </div>
+    </div>
 
 {% endblock %}
