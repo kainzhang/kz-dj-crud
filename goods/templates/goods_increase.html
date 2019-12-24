@@ -2,12 +2,21 @@
 
 {% block content %}
 
-    <form method="get" action="{% url 'goods:goods_add' object.id %}">
-    {% csrf_token %}
-        <label> Quantity:
-            <input type="number" name="quantity">
-        </label>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="detail">
+		 <form method="get" action="{% url 'goods:goods_add' object.id %}"> {% csrf_token %}
+			<div class="detail-info">
+                <table>
+                    <tr>
+                        <td align="right">Quantity: </td>
+                        <td colspan="2"><input type="number" name="quantity"></td>
+                    </tr>
+                </table>
+			</div>
+
+			<div class="detail-op">
+				<input type="submit" value="Submit">
+			</div>
+    	</form>
+	</div>
 
 {% endblock %}

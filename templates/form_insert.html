@@ -2,10 +2,23 @@
 
 {% block content %}
 
-    <form method="post">
-    {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="detail">
+		<form method="post"> {% csrf_token %}
+			<div class="detail-info">
+                <table>
+                {% for field in form %}
+                    <tr>
+                        <td align="right">{{ field.label }} :</td>
+                        <td colspan="2">{{ field }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+			</div>
+
+			<div class="detail-op">
+				<input type="submit" value="Submit">
+			</div>
+    	</form>
+	</div>
 
 {% endblock %}
