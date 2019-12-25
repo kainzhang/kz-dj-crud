@@ -1,15 +1,22 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.forms import ModelForm
+from django import forms
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 from goods.models import Goods
 
 
-class GoodsForm(ModelForm):
+class GoodsForm(forms.ModelForm):
     class Meta:
         model = Goods
         fields = '__all__'
+
+    def clean(self):
+        if self.cleaned_data['buy_price'] < 0:
+            raise forms.ValidationError('Buying price must be positive real number')
+        if self.cleaned_data['sell_price'] < 0:
+            raise forms.ValidationError('Selling price must be positive real number')
+        return self.cleaned_data
 
 
 def goods_list(request):
@@ -58,9 +65,13 @@ def goods_select(request):
 @login_required
 def goods_increase(request, pk):
     obj = get_object_or_404(Goods, pk=pk)
-    quantity = request.GET.get('quantity')
-    if quantity:
-        obj.quantity += int(str(quantity))
+    quantity = int(str(request.GET.get('quantity', '0')))
+    data = {}
+    if quantity > 0:
+        obj.quantity += quantity
         obj.save()
         return redirect('goods:goods_list')
-    return render(request, 'goods_increase.html', {'object': obj})
+    elif quantity < 0:
+        data['message'] = 'Field number must be positive integer'
+    data['object'] = obj
+    return render(request, 'goods_increase.html', data)

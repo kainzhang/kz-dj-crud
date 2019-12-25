@@ -51,6 +51,7 @@ class RegForm(forms.Form):
         confirm_password = self.cleaned_data['confirm_password']
         if password != confirm_password:
             raise forms.ValidationError('Passwords do not match')
+
         return self.cleaned_data
 
 

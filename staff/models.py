@@ -11,7 +11,7 @@ class Staff(models.Model):
     )
     name = models.CharField(max_length=50)
     gender = models.IntegerField(choices=GENDER_CHOICES, default=1)
-    age = models.IntegerField()
+    age = models.PositiveIntegerField()
     department = models.IntegerField(choices=DEPT_CHOICES, default=1)
     position = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)

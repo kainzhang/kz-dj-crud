@@ -7,11 +7,11 @@ class Goods(models.Model):
         (4, 'Daily Supply'), (5, 'Electronic'),
     )
     name = models.CharField(max_length=50)
-    mfr = models.CharField(max_length=300)
+    mfr = models.CharField(max_length=300, verbose_name='Manufacturer')
     category = models.IntegerField(choices=CATE_CHOICES, default=1)
-    buy_price = models.FloatField()
-    quantity = models.IntegerField()
-    sell_price = models.FloatField()
+    buy_price = models.FloatField(verbose_name='Buying Price')
+    quantity = models.PositiveIntegerField()
+    sell_price = models.FloatField(verbose_name='Selling Price')
     date = models.DateTimeField(auto_now=True)
 
     def __str__(self):

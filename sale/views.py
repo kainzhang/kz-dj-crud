@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.forms import ModelForm
+from django import forms
 from django.contrib.auth.decorators import login_required
 
 from sale.models import Sale
 
 
-class SaleForm(ModelForm):
+class SaleForm(forms.ModelForm):
+    def clean(self):
+        if self.cleaned_data['total_buy'] < 0:
+            raise forms.ValidationError('Total purchase must be positive real number')
+        if self.cleaned_data['total_sell'] < 0:
+            raise forms.ValidationError('Total sales must be positive real number')
+        return self.cleaned_data
+
     class Meta:
         model = Sale
         fields = '__all__'
